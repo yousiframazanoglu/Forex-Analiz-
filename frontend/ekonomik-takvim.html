@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForexAnaliz - Ekonomik Takvim</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .etkili-yuksek{color:var(--red);font-weight:700;}
+    .etkili-orta{color:var(--orange);font-weight:600;}
+    .etkili-dusuk{color:var(--green);font-weight:500;}
+    .etkili-dot-y{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--red);margin-right:5px;}
+    .etkili-dot-o{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--orange);margin-right:5px;}
+    .etkili-dot-d{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);margin-right:5px;}
+    .day-header{background:var(--orange-pale);border:1px solid var(--orange-light);border-radius:var(--radius-sm);padding:10px 16px;margin:24px 0 0;font-weight:700;font-size:.85rem;color:var(--orange-dark);}
+    .takvim-table td{vertical-align:middle;}
+    .takvim-table td:first-child{white-space:nowrap;font-family:var(--font-mono);font-size:.82rem;}
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      Forex<span>Analiz</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="piyasalar.html">Piyasalar</a></li>
+      <li><a href="chart.html">Chart</a></li>
+      <li><a href="analiz.html">Teknik Analiz</a></li>
+      <li><a href="ekonomik-takvim.html" class="active">Ekonomik Takvim</a></li>
+      <li><a href="haberler.html">Haberler</a></li>
+      <li><a href="hakkinda.html">Hakkinda</a></li>
+    </ul>
+    <div id="nav-auth" style="display:flex;gap:8px;"></div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="tag">Haftalik Veri</div>
+    <h1>Ekonomik Takvim</h1>
+    <p>Piyasalari dogrudan etkileyen makroekonomik veri aciklamalari ve merkez bankasi kararlari.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:28px;align-items:center;">
+      <strong style="font-size:.85rem;color:var(--text-2);">Etki Derecesi:</strong>
+      <span><span class="etkili-dot-y"></span><span style="font-size:.82rem;">Yuksek</span></span>
+      <span><span class="etkili-dot-o"></span><span style="font-size:.82rem;">Orta</span></span>
+      <span><span class="etkili-dot-d"></span><span style="font-size:.82rem;">Dusuk</span></span>
+    </div>
+    <div id="takvim-container">
+      <div style="text-align:center;padding:48px;color:var(--text-4);">Veriler yukleniyor...</div>
+    </div>
+    <div class="info-box" style="margin-top:32px;">
+      <strong>Not:</strong> Saatler Turkiye Saati (TSI / UTC+3). Veriler SQLite veritabanindan cekilmektedir.
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="color:#fff;">
+          <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          Forex<span style="color:var(--orange);">Analiz</span>
+        </div>
+        <p>Doviz piyasalarini anlamak isteyenler icin kapsamli bir analiz platformu.</p>
+        <p class="footer-disclaimer">Bu platform yatirim tavsiyesi vermez.</p>
+      </div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul>
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="piyasalar.html">Piyasalar</a></li>
+        <li><a href="chart.html">Chart</a></li>
+        <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hesap</h4><ul>
+        <li><a href="giris.html">Giris Yap</a></li>
+        <li><a href="kayit.html">Uye Ol</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Iletisim</h4><ul>
+        <li><a href="hakkinda.html">Hakkimizda</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 ForexAnaliz. Tum haklari saklidir.</span>
+      <span>Egitim amacli icerik.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="api.js"></script>
+<script>
+const GUNLER = ["Pazar","Pazartesi","Sali","Carsamba","Persembe","Cuma","Cumartesi"];
+const AYLAR  = ["Ocak","Subat","Mart","Nisan","Mayis","Haziran","Temmuz","Agustos","Eylul","Ekim","Kasim","Aralik"];
+
+function etkiHtml(e) {
+  if(e==="Yuksek") return `<span class="etkili-dot-y"></span><span class="etkili-yuksek">Yuksek</span>`;
+  if(e==="Orta")   return `<span class="etkili-dot-o"></span><span class="etkili-orta">Orta</span>`;
+  return `<span class="etkili-dot-d"></span><span class="etkili-dusuk">Dusuk</span>`;
+}
+
+function tarihFmt(t) {
+  const d=new Date(t+"T00:00:00");
+  return `${GUNLER[d.getDay()]}, ${d.getDate()} ${AYLAR[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+async function yukle() {
+  const el = document.getElementById("takvim-container");
+  try {
+    const res = await ForexAPI.getTakvim();
+    const data = res.data;
+    if (!data.length) { el.innerHTML='<div class="info-box">Veri bulunamadi.</div>'; return; }
+
+    const gruplar = {};
+    data.forEach(v => { if(!gruplar[v.tarih]) gruplar[v.tarih]=[]; gruplar[v.tarih].push(v); });
+
+    let html = "";
+    Object.keys(gruplar).sort().forEach(tarih => {
+      html += `<div class="day-header">${tarihFmt(tarih)}</div>
+               <div class="card" style="overflow:hidden;margin-bottom:4px;">
+               <table class="data-table takvim-table">
+               <thead><tr><th>Saat</th><th>Ulke</th><th>Veri / Olay</th><th>Etki</th><th>Onceki</th><th>Beklenti</th><th>Aciklanan</th></tr></thead>
+               <tbody>`;
+      gruplar[tarih].forEach(v => {
+        html += `<tr>
+          <td>${v.saat?.substring(0,5)||"-"}</td>
+          <td>${v.ulke}</td><td>${v.veri_adi}</td>
+          <td>${etkiHtml(v.etki)}</td>
+          <td class="val-mono">${v.onceki||"-"}</td>
+          <td class="val-mono">${v.beklenti||"-"}</td>
+          <td class="val-mono">${(!v.aciklanan||v.aciklanan==="-")?"<span style='color:var(--text-4)'>–</span>":v.aciklanan}</td>
+        </tr>`;
+      });
+      html += "</tbody></table></div>";
+    });
+    el.innerHTML = html;
+  } catch(e) {
+    el.innerHTML = `<div class="info-box"><strong>Hata:</strong> Backend'e baglanamadi. <code>start.bat</code>'i calistirdin mi?</div>`;
+  }
+}
+
+yukle();
+</script>
+</body>
+</html>

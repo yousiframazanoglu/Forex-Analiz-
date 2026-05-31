@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForexAnaliz - Piyasa Haberleri</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .haber-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; }
+    .haber-ana  { display: flex; flex-direction: column; gap: 20px; }
+    .haber-kenar { display: flex; flex-direction: column; gap: 16px; }
+    .haber-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: box-shadow .2s, transform .2s; }
+    .haber-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .haber-card-body { padding: 22px; }
+    .haber-card-body h2 { font-size:1.05rem; font-weight:600; line-height:1.45; margin-bottom:10px; }
+    .haber-card-body p  { font-size:.875rem; color:var(--text-3); line-height:1.7; margin-bottom:14px; }
+    .haber-meta { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .haber-meta span { font-size:.75rem; color:var(--text-4); }
+    .haber-mini { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; transition: box-shadow .15s; }
+    .haber-mini:hover { box-shadow: var(--shadow-sm); }
+    .haber-mini h4 { font-size:.85rem; font-weight:600; line-height:1.4; margin-bottom:6px; }
+    .haber-mini span { font-size:.72rem; color:var(--text-4); }
+    .kenar-baslik { font-size:.8rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--text-3); margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid var(--orange); display:inline-block; }
+    @media(max-width:768px){ .haber-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      </div>
+      Forex<span>Analiz</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="piyasalar.html">Piyasalar</a></li>
+      <li><a href="analiz.html">Teknik Analiz</a></li>
+      <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      <li><a href="haberler.html" class="active">Haberler</a></li>
+      <li><a href="hakkinda.html">Hakkinda</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- SAYFA BASLIGI -->
+<div class="page-header">
+  <div class="container">
+    <div class="tag">Guncel Gelismeler</div>
+    <h1>Piyasa Haberleri</h1>
+    <p>Doviz piyasalarini etkileyen makroekonomik gelismeler, merkez bankasi aciklamalari ve kuresel ekonomik haberler.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="haber-grid">
+
+      <!-- ANA HABER LISTESI -->
+      <div class="haber-ana">
+
+        <div class="haber-card">
+          <div class="haber-card-body">
+            <div style="display:flex; gap:8px; margin-bottom:12px;">
+              <span class="badge badge-orange">FED</span>
+              <span class="badge badge-blue">ABD</span>
+            </div>
+            <h2>Federal Rezerv Faizleri Degistirmedi, Dolar Sinirli Geriledi</h2>
+            <p>Federal Rezerv, Mayis 2026 para politikasi toplantisinin ardindan politika faizini yuzde 5,25-5,50 araliginda sabit birakmaya karar verdi. Fed Baskani aciklamasinda, enflasyonun hedef olan yuzde ikiye yaklastigini ancak henuz bu hedefin kesinlikle saglanmadigini belirtti. Karar oncesinde piyasalarda yuzde elliye yakin ihtimalle faiz indirimi beklentisi bulunuyordu.</p>
+            <p>Aciklamanin ardindan dolar endeksi (DXY) sinirli bir dusus kaydederek 104,20 seviyesine geriledi. EUR/USD paritesi karar sonrasinda anlık olarak 1,0870 seviyesini test etti. Analistler, Fed'in Haziran toplantisinda da temkinli tutumunu koruyacagini one suruyor.</p>
+            <div class="haber-meta">
+              <span>5 Nisan 2026</span>
+              <span>Federal Rezerv</span>
+              <span>Faiz Politikasi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="haber-card">
+          <div class="haber-card-body">
+            <div style="display:flex; gap:8px; margin-bottom:12px;">
+              <span class="badge badge-blue">ECB</span>
+              <span class="badge badge-green">EURO</span>
+            </div>
+            <h2>ECB Faiz Indirimi Icin Zemin Hazirlaniyor, Euro Guclenebilir</h2>
+            <p>Avrupa Merkez Bankasi (ECB) yetkililerinden gelen aciklamalar, Haziran 2026 toplantisinda faiz indirimine gidilebilecegine isaret ediyor. ECB Baskani, enflasyonun Euro Bolgesi genelinde istikrarli bir dusus egilimine girdigini ve merkez bankasinin para politikasini normalizeye hazirlandigini belirtti.</p>
+            <p>Analistler, ECB'nin faiz indirimine gitmesiyle birlikte EUR/USD paritesindeki volatilitenin artabileceğini ve kisa vadede 1,0950 seviyesinin test edilebilecegini dusunuyor. Euro Bolgesinden gelecek enflasyon ve istihdam verileri, ECB'nin nihai kararinda belirleyici olacak.</p>
+            <div class="haber-meta">
+              <span>4 Nisan 2026</span>
+              <span>Avrupa Merkez Bankasi</span>
+              <span>Para Politikasi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="haber-card">
+          <div class="haber-card-body">
+            <div style="display:flex; gap:8px; margin-bottom:12px;">
+              <span class="badge badge-green">ALTIN</span>
+              <span class="badge badge-orange">EMTİA</span>
+            </div>
+            <h2>Altin Fiyatlari Jeopolitik Gerilimle Nisan Zirvesine Yukseldi</h2>
+            <p>Orta Dogu'da tirmanan jeopolitik gerilim ve kuresel ekonomik belirsizlik, guvenli liman varliklarına olan talebi artirdi. Altin (XAU/USD) paritesi Nisan 2026'nin en yuksek seviyesine ulasarak ons basina 2.324,80 dolar zirvesini gördü.</p>
+            <p>Uzmanlar, merkez bankalarinin altin rezervlerini artirmaya devam etmesi ve dolar endeksindeki zayiflamanin altin fiyatlarini desteklemeye devam edecegini belirtmektedir. Teknik acidan 2.350 seviyesi kritik bir direnc noktasi olarak izleniyor.</p>
+            <div class="haber-meta">
+              <span>3 Nisan 2026</span>
+              <span>Emtia Piyasalari</span>
+              <span>Altin</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="haber-card">
+          <div class="haber-card-body">
+            <div style="display:flex; gap:8px; margin-bottom:12px;">
+              <span class="badge badge-blue">TCMB</span>
+              <span class="badge badge-orange">TRY</span>
+            </div>
+            <h2>TCMB Faiz Kararinda Temkinli Tutumunu Surduruyor</h2>
+            <p>Turkiye Cumhuriyet Merkez Bankasi (TCMB), Mart 2026 toplantisinda politika faizini yuzde elli duzeyde sabit tuttu. Bankanin aciklamasinda, enflasyonla mucadelede kararliligan surdurulegecegi ve faiz indirimi icin yeterli verinin henuz olussmadiginin vurgulandigi goruldu.</p>
+            <p>Kararın ardindan USD/TRY paritesi 32,74-32,95 araliginda dalgalandi. Yurt ici enflasyonun yillik bazda yuzde altmis yedi seviyesinde seyretmesi, para politikasinin normalizeye ne zaman baslanacagi konusundaki tartismalari canli tutmaktadir.</p>
+            <div class="haber-meta">
+              <span>2 Nisan 2026</span>
+              <span>TCMB</span>
+              <span>Turkiye Ekonomisi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="haber-card">
+          <div class="haber-card-body">
+            <div style="display:flex; gap:8px; margin-bottom:12px;">
+              <span class="badge badge-blue">JPY</span>
+              <span class="badge badge-orange">BOJ</span>
+            </div>
+            <h2>Japonya Merkez Bankasi Tarihi Faiz Artisinin Ardindan Yeni Adim Sinyali Verdi</h2>
+            <p>Bank of Japan (BOJ), yillarca surun negatif faiz politikasini sonlandirmasinin ardindan yeni bir faiz artisini gundemine tasidi. BOJ Baskani, isci ucretlerinde belirgin bir yukselis ve enflasyonun hedef seviyelere yaklastigi durumda ek faiz artisinin mumkun oldugunu ifade etti.</p>
+            <p>Piyasalar, BOJ'un bu yil iki faiz artisina daha gidebilecegini fiyatlamaya basladi. USD/JPY paritesi bu beklentiler dogrultusunda 150 seviyesine yakiasarak guclendi ve Japon Yeni'nin deger kazanma ihtimalini on plana tasiyor.</p>
+            <div class="haber-meta">
+              <span>1 Nisan 2026</span>
+              <span>Bank of Japan</span>
+              <span>Japon Ekonomisi</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- KENAR PANEL -->
+      <div>
+        <div style="margin-bottom:32px;">
+          <div class="kenar-baslik">Hizli Haberler</div>
+          <div class="haber-kenar">
+            <div class="haber-mini">
+              <span class="badge badge-orange" style="margin-bottom:6px;display:inline-block;font-size:.68rem;">GBP</span>
+              <h4>Ingiltere'de Enflasyon Beklenenden Hizli Dustu</h4>
+              <span>3 Nisan 2026</span>
+            </div>
+            <div class="haber-mini">
+              <span class="badge badge-green" style="margin-bottom:6px;display:inline-block;font-size:.68rem;">AUD</span>
+              <h4>Avustralya'da Issizlik Orani Beklentilerin Altinda Kaldi</h4>
+              <span>2 Nisan 2026</span>
+            </div>
+            <div class="haber-mini">
+              <span class="badge badge-blue" style="margin-bottom:6px;display:inline-block;font-size:.68rem;">USD</span>
+              <h4>ABD Cari Acigi Subat'ta Daralma Kaydetti</h4>
+              <span>1 Nisan 2026</span>
+            </div>
+            <div class="haber-mini">
+              <span class="badge badge-orange" style="margin-bottom:6px;display:inline-block;font-size:.68rem;">CAD</span>
+              <h4>Kanada'da Istihdam Verisi Guclu Geldi, CAD Yukseldi</h4>
+              <span>31 Mart 2026</span>
+            </div>
+            <div class="haber-mini">
+              <span class="badge badge-blue" style="margin-bottom:6px;display:inline-block;font-size:.68rem;">CHF</span>
+              <h4>Isvicre Merkez Bankasi Faiz Politikasinda Degisiklige Gitmedi</h4>
+              <span>29 Mart 2026</span>
+            </div>
+            <div class="haber-mini">
+              <span class="badge badge-green" style="margin-bottom:6px;display:inline-block;font-size:.68rem;">NZD</span>
+              <h4>RBNZ Faiz Indirimi Sinyali Verdi, NZD Geriledi</h4>
+              <span>28 Mart 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="kenar-baslik">Bu Hafta Odak Noktasi</div>
+          <div class="card">
+            <div class="card-body">
+              <div style="margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border-soft);">
+                <div style="font-size:.78rem; font-weight:600; color:var(--orange); margin-bottom:4px;">10 Nisan - 15:30 TSI</div>
+                <div style="font-size:.88rem; font-weight:600;">ABD Tarim Disi Istihdam (NFP)</div>
+                <div style="font-size:.78rem; color:var(--text-3); margin-top:3px;">Beklenti: 215K - Onceki: 275K</div>
+              </div>
+              <div style="margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border-soft);">
+                <div style="font-size:.78rem; font-weight:600; color:var(--orange); margin-bottom:4px;">9 Nisan - 12:15 TSI</div>
+                <div style="font-size:.88rem; font-weight:600;">ECB Faiz Karari</div>
+                <div style="font-size:.78rem; color:var(--text-3); margin-top:3px;">Beklenti: 25 baz puan indirim</div>
+              </div>
+              <div>
+                <div style="font-size:.78rem; font-weight:600; color:var(--orange); margin-bottom:4px;">8 Nisan - 20:00 TSI</div>
+                <div style="font-size:.88rem; font-weight:600;">FOMC Toplanti Tutanaklari</div>
+                <div style="font-size:.78rem; color:var(--text-3); margin-top:3px;">Faiz yolu icin ipucu aranacak</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="color:#fff;">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          Forex<span style="color:var(--orange);">Analiz</span>
+        </div>
+        <p>Doviz piyasalarini anlamak isteyenler icin kapsamli bir analiz ve bilgi platformu.</p>
+        <p class="footer-disclaimer">Bu platform yatirim tavsiyesi vermez. Tum icerik yalnizca egitim amaclidir.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Sayfalar</h4>
+        <ul>
+          <li><a href="index.html">Ana Sayfa</a></li>
+          <li><a href="piyasalar.html">Piyasalar</a></li>
+          <li><a href="analiz.html">Teknik Analiz</a></li>
+          <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+          <li><a href="haberler.html">Haberler</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kaynaklar</h4>
+        <ul>
+          <li><a href="analiz.html">Grafik Okuma</a></li>
+          <li><a href="analiz.html">Indikatörler</a></li>
+          <li><a href="analiz.html">Mum Formasyonlari</a></li>
+          <li><a href="ekonomik-takvim.html">Veri Takvimi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Iletisim</h4>
+        <ul>
+          <li><a href="hakkinda.html">Hakkimizda</a></li>
+          <li><a href="hakkinda.html">Bize Ulasin</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 ForexAnaliz. Tum haklari saklidir.</span>
+      <span>Egitim amacli icerik - Yatirim tavsiyesi degildir.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

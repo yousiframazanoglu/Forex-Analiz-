@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForexAnaliz - Ana Sayfa</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      </div>
+      Forex<span>Analiz</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Ana Sayfa</a></li>
+      <li><a href="piyasalar.html">Piyasalar</a></li>
+      <li><a href="chart.html">Chart</a></li>
+      <li><a href="analiz.html">Teknik Analiz</a></li>
+      <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      <li><a href="haberler.html">Haberler</a></li>
+      <li><a href="hakkinda.html">Hakkinda</a></li>
+    </ul>
+    <div id="nav-auth" style="display:flex;gap:8px;"></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">Gercek Zamanli Forex Analizi</p>
+        <h1 class="hero-title">Doviz Piyasalarini<br><span>Anlayarak</span> Takip Et</h1>
+        <p class="hero-desc">Teknik analiz, ekonomik takvim ve piyasa haberleriyle desteklenen kapsamli bir forex analiz platformu.</p>
+        <div class="hero-actions">
+          <a href="piyasalar.html" class="btn btn-primary">Piyasalara Goz At</a>
+          <a href="chart.html" class="btn btn-outline">Chart'i Ac</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-card" onclick="location.href='chart.html?sym=EUR/USD'" style="cursor:pointer;">
+          <div class="hero-stat-pair">
+            <span class="hero-stat-value" id="h-eurusd">...</span>
+            <span class="hero-stat-change" id="h-eurusd-c">–</span>
+          </div>
+          <div class="hero-stat-label">EUR / USD</div>
+        </div>
+        <div class="hero-stat-card" onclick="location.href='chart.html?sym=GBP/USD'" style="cursor:pointer;">
+          <div class="hero-stat-pair">
+            <span class="hero-stat-value" id="h-gbpusd">...</span>
+            <span class="hero-stat-change" id="h-gbpusd-c">–</span>
+          </div>
+          <div class="hero-stat-label">GBP / USD</div>
+        </div>
+        <div class="hero-stat-card" onclick="location.href='chart.html?sym=USD/JPY'" style="cursor:pointer;">
+          <div class="hero-stat-pair">
+            <span class="hero-stat-value" id="h-usdjpy">...</span>
+            <span class="hero-stat-change" id="h-usdjpy-c">–</span>
+          </div>
+          <div class="hero-stat-label">USD / JPY</div>
+        </div>
+        <div class="hero-stat-card" onclick="location.href='chart.html?sym=USD/TRY'" style="cursor:pointer;">
+          <div class="hero-stat-pair">
+            <span class="hero-stat-value" id="h-usdtry">...</span>
+            <span class="hero-stat-change" id="h-usdtry-c">–</span>
+          </div>
+          <div class="hero-stat-label">USD / TRY</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OZET TABLO -->
+<section class="section">
+  <div class="container">
+    <div class="tag">Piyasa Ozeti</div>
+    <h2 class="section-title">Gunun <span>One Cikan</span> Kurlari</h2>
+    <p class="section-sub">Majör ve minör doviz ciftlerindeki gunluk hareketler.</p>
+    <div class="card" style="overflow:hidden; margin-bottom:32px;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Doviz Cifti</th><th>Alis</th><th>Satis</th>
+            <th>Degisim</th><th>Durum</th>
+          </tr>
+        </thead>
+        <tbody id="ozet-tbody">
+          <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-4);">Yukleniyor...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="text-align:center;display:flex;align-items:center;justify-content:center;gap:16px;">
+      <a href="piyasalar.html" class="btn btn-outline">Tum Kurlari Goster</a>
+      <span id="son-guncelleme" style="font-size:.75rem;color:var(--text-4);"></span>
+    </div>
+  </div>
+</section>
+
+<!-- OZELLIKLER -->
+<section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="tag">Ne Sunuyoruz</div>
+    <h2 class="section-title">Platform <span>Ozellikleri</span></h2>
+    <p class="section-sub">Piyasayi anlayabilmek icin ihtiyaciniz olan tum araclar tek cercevede.</p>
+    <div class="grid-3">
+      <div class="card"><div class="card-body">
+        <div style="width:44px;height:44px;background:var(--orange-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
+        </div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Canli Kur Takibi</h3>
+        <p style="font-size:.875rem;color:var(--text-3);line-height:1.6;">WebSocket ile 30 saniyede bir otomatik guncellenen gercek zamanli kur verileri.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <div style="width:44px;height:44px;background:var(--orange-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Japon Mumu Chart</h3>
+        <p style="font-size:.875rem;color:var(--text-3);line-height:1.6;">Tum pariteler icin surukle-birak, zoom destekli interaktif mum grafigi.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <div style="width:44px;height:44px;background:var(--orange-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Ekonomik Takvim</h3>
+        <p style="font-size:.875rem;color:var(--text-3);line-height:1.6;">Merkez bankasi kararlarindan NFP'ye kadar kritik ekonomik aciklamalar.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <div style="width:44px;height:44px;background:var(--orange-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Kullanici Sistemi</h3>
+        <p style="font-size:.875rem;color:var(--text-3);line-height:1.6;">Kayit, giris, favori pariteler, fiyat alarmlari ve islem notu tutma.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <div style="width:44px;height:44px;background:var(--orange-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Risk Yonetimi</h3>
+        <p style="font-size:.875rem;color:var(--text-3);line-height:1.6;">Stop-loss, risk/kazanc orani ve pozisyon buyuklugu kavramlari.</p>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <div style="width:44px;height:44px;background:var(--orange-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;">Piyasa Haberleri</h3>
+        <p style="font-size:.875rem;color:var(--text-3);line-height:1.6;">Doviz piyasalarini dogrudan etkileyen makroekonomik gelismeler.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SON HABERLER -->
+<section class="section">
+  <div class="container">
+    <div class="tag">Son Dakika</div>
+    <h2 class="section-title">Piyasa <span>Haberleri</span></h2>
+    <p class="section-sub">Doviz piyasalarini etkileyen guncel gelismeler.</p>
+    <div class="grid-3" style="margin-bottom:32px;">
+      <div class="card"><div class="card-body">
+        <span class="badge badge-orange" style="margin-bottom:12px;display:inline-block;">FED</span>
+        <h3 style="font-size:.95rem;font-weight:600;margin-bottom:8px;line-height:1.4;">Fed Faiz Kararini Acikladi: Beklentilere Paralel Politika</h3>
+        <p style="font-size:.82rem;color:var(--text-3);line-height:1.6;margin-bottom:14px;">Federal Rezerv faiz oranlarini sabit tutma karari aldi. Aciklama sonrasinda dolar endeksinde sinirli dusus gozlemlendi.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.75rem;color:var(--text-4);">5 Nisan 2026</span>
+          <a href="haberler.html" class="btn btn-ghost" style="font-size:.78rem;padding:4px 10px;">Devami</a>
+        </div>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <span class="badge badge-blue" style="margin-bottom:12px;display:inline-block;">ECB</span>
+        <h3 style="font-size:.95rem;font-weight:600;margin-bottom:8px;line-height:1.4;">Avrupa Merkez Bankasi Faiz Indirimini Gundemde Tutuyor</h3>
+        <p style="font-size:.82rem;color:var(--text-3);line-height:1.6;margin-bottom:14px;">ECB yetkilileri enflasyonun hedef seviyelere yaklastiğinda faiz indirimi adimlarinin atilabileceğini belirtti.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.75rem;color:var(--text-4);">4 Nisan 2026</span>
+          <a href="haberler.html" class="btn btn-ghost" style="font-size:.78rem;padding:4px 10px;">Devami</a>
+        </div>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <span class="badge badge-green" style="margin-bottom:12px;display:inline-block;">ALTIN</span>
+        <h3 style="font-size:.95rem;font-weight:600;margin-bottom:8px;line-height:1.4;">Altin Fiyatlari Jeopolitik Gerilimlerle Yukseliyor</h3>
+        <p style="font-size:.82rem;color:var(--text-3);line-height:1.6;margin-bottom:14px;">Kuresel belirsizlik ve dolar endeksindeki zayiflama altin fiyatlarini Nisan 2026 zirvelerine tasidi.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.75rem;color:var(--text-4);">3 Nisan 2026</span>
+          <a href="haberler.html" class="btn btn-ghost" style="font-size:.78rem;padding:4px 10px;">Devami</a>
+        </div>
+      </div></div>
+    </div>
+    <div style="text-align:center;"><a href="haberler.html" class="btn btn-outline">Tum Haberleri Goster</a></div>
+  </div>
+</section>
+
+<section style="padding:0 0 56px;">
+  <div class="container">
+    <div class="info-box">
+      <strong>Risk Uyarisi:</strong> Bu sitede yer alan bilgiler yalnizca egitim amaclidir. Forex piyasalari yuksek risk icermektedir.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="color:#fff;">
+          <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          Forex<span style="color:var(--orange);">Analiz</span>
+        </div>
+        <p>Doviz piyasalarini anlamak isteyenler icin kapsamli bir analiz platformu.</p>
+        <p class="footer-disclaimer">Bu platform yatirim tavsiyesi vermez.</p>
+      </div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul>
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="piyasalar.html">Piyasalar</a></li>
+        <li><a href="chart.html">Chart</a></li>
+        <li><a href="analiz.html">Teknik Analiz</a></li>
+        <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hesap</h4><ul>
+        <li><a href="giris.html">Giris Yap</a></li>
+        <li><a href="kayit.html">Uye Ol</a></li>
+        <li><a href="profil.html">Profilim</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Iletisim</h4><ul>
+        <li><a href="hakkinda.html">Hakkimizda</a></li>
+        <li><a href="hakkinda.html">Bize Ulasin</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 ForexAnaliz. Tum haklari saklidir.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="api.js"></script>
+<script>
+const OZET_PAIRS = ["EUR/USD","GBP/USD","USD/JPY","USD/CHF","USD/TRY","XAU/USD"];
+const HERO_MAP   = {
+  "EUR/USD": ["h-eurusd","h-eurusd-c"],
+  "GBP/USD": ["h-gbpusd","h-gbpusd-c"],
+  "USD/JPY": ["h-usdjpy","h-usdjpy-c"],
+  "USD/TRY": ["h-usdtry","h-usdtry-c"],
+};
+const NAMES = {
+  "EUR/USD":"Euro / Amerikan Dolari","GBP/USD":"Sterlin / Amerikan Dolari",
+  "USD/JPY":"Amerikan Dolari / Japon Yeni","USD/CHF":"Amerikan Dolari / Isvicre Frangi",
+  "USD/TRY":"Amerikan Dolari / Turk Lirasi","XAU/USD":"Altin / Amerikan Dolari",
+};
+
+function renderPrices(data) {
+  // Hero kartlar
+  data.forEach(p => {
+    const ids = HERO_MAP[p.symbol];
+    if (!ids) return;
+    const up = p.change_pct >= 0;
+    document.getElementById(ids[0]).textContent = p.bid;
+    const chgEl = document.getElementById(ids[1]);
+    chgEl.textContent = `${up?"+":""}${p.change_pct.toFixed(2)}%`;
+    chgEl.className   = `hero-stat-change ${up?"up":"down"}`;
+  });
+
+  // Ozet tablo
+  const rows = data.filter(p => OZET_PAIRS.includes(p.symbol));
+  document.getElementById("ozet-tbody").innerHTML = rows.map(p => {
+    const up = p.change_pct >= 0;
+    return `<tr>
+      <td><strong>${p.symbol}</strong><br>
+          <small style="color:var(--text-4);font-size:.75rem;">${NAMES[p.symbol]||""}</small></td>
+      <td class="val-mono">${p.bid}</td>
+      <td class="val-mono">${p.ask}</td>
+      <td class="${up?"val-up":"val-down"}">${up?"+":""}${p.change_pct.toFixed(2)}%</td>
+      <td><span class="badge ${up?"badge-green":"badge-red"}">${up?"Yukseliyor":"Dusuyor"}</span></td>
+    </tr>`;
+  }).join("");
+
+  const now = new Date();
+  document.getElementById("son-guncelleme").textContent =
+    `Son guncelleme: ${now.toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"})}`;
+}
+
+// WebSocket ile canlı fiyat
+const stream = new PriceStream(renderPrices);
+
+// İlk yükleme (WS bağlanmadan önce)
+ForexAPI.getPrices().then(r => renderPrices(r.data)).catch(()=>{});
+</script>
+</body>
+</html>

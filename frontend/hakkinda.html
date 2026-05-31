@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForexAnaliz - Hakkinda</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .iletisim-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+    .form-group{margin-bottom:18px;}
+    .form-label{display:block;font-size:.82rem;font-weight:600;color:var(--text-2);margin-bottom:6px;}
+    .form-input,.form-textarea{width:100%;padding:10px 14px;font-family:var(--font-body);font-size:.875rem;color:var(--text-1);background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);outline:none;transition:border-color .18s;box-sizing:border-box;}
+    .form-input:focus,.form-textarea:focus{border-color:var(--orange);}
+    .form-textarea{min-height:120px;resize:vertical;}
+    .team-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;}
+    .team-avatar{width:64px;height:64px;background:var(--orange-pale);border:2px solid var(--orange-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:1.4rem;font-weight:700;color:var(--orange);font-family:var(--font-display);}
+    .team-name{font-size:.95rem;font-weight:600;margin-bottom:4px;}
+    .team-role{font-size:.78rem;color:var(--text-3);}
+    .iletisim-info{display:flex;flex-direction:column;gap:16px;}
+    .iletisim-item{display:flex;align-items:flex-start;gap:14px;}
+    .iletisim-icon{width:40px;height:40px;background:var(--orange-pale);border:1px solid var(--orange-light);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .iletisim-item h4{font-size:.85rem;font-weight:600;margin-bottom:2px;}
+    .iletisim-item p{font-size:.82rem;color:var(--text-3);}
+    .form-success{display:none;background:var(--green-bg);border:1px solid var(--green);color:var(--green);border-radius:var(--radius-sm);padding:14px 18px;font-size:.875rem;margin-top:12px;}
+    .form-error{display:none;background:var(--red-bg);border:1px solid var(--red);color:var(--red);border-radius:var(--radius-sm);padding:14px 18px;font-size:.875rem;margin-top:12px;}
+    @media(max-width:768px){.iletisim-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      Forex<span>Analiz</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="piyasalar.html">Piyasalar</a></li>
+      <li><a href="chart.html">Chart</a></li>
+      <li><a href="analiz.html">Teknik Analiz</a></li>
+      <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      <li><a href="haberler.html">Haberler</a></li>
+      <li><a href="hakkinda.html" class="active">Hakkinda</a></li>
+    </ul>
+    <div id="nav-auth" style="display:flex;gap:8px;"></div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="tag">Biz Kimiz</div>
+    <h1>Hakkinda</h1>
+    <p>ForexAnaliz, doviz piyasalarini anlamak isteyen herkese yonelik egitim odakli bir web platformudur.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="grid-2" style="margin-bottom:56px;align-items:start;">
+      <div>
+        <div class="tag">Proje Hakkinda</div>
+        <h2 class="section-title">ForexAnaliz <span>Nedir?</span></h2>
+        <p style="color:var(--text-2);font-size:.95rem;line-height:1.8;margin-bottom:14px;">ForexAnaliz, Internet Tabanli Programlama dersi kapsaminda gelistirilmis bir egitim web platformudur.</p>
+        <p style="color:var(--text-2);font-size:.95rem;line-height:1.8;margin-bottom:14px;">Platform; gercek zamanli kur verileri, Japon mumu chart, ekonomik takvim, tam kullanici sistemi ve iletisim formu icermektedir.</p>
+        <p style="color:var(--text-2);font-size:.95rem;line-height:1.8;">Kur verileri ExchangeRate-API ve Frankfurter API uzerinden, kullanici sistemi Python FastAPI + SQLite ile saglanmaktadir.</p>
+      </div>
+      <div>
+        <div class="card" style="overflow:hidden;">
+          <div style="background:var(--orange);padding:20px 24px;">
+            <h3 style="color:#fff;font-family:var(--font-display);font-size:1.1rem;">Teknik Altyapi</h3>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;"></div><span style="font-size:.875rem;color:var(--text-2);">HTML5 + CSS3 + Vanilla JS</span></div>
+              <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;"></div><span style="font-size:.875rem;color:var(--text-2);">Python FastAPI + SQLite backend</span></div>
+              <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;"></div><span style="font-size:.875rem;color:var(--text-2);">WebSocket ile canli kur akisi</span></div>
+              <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;"></div><span style="font-size:.875rem;color:var(--text-2);">Canvas tabanlı Japon mumu chart</span></div>
+              <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;"></div><span style="font-size:.875rem;color:var(--text-2);">JWT auth + Gmail SMTP</span></div>
+              <div style="display:flex;align-items:center;gap:12px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;"></div><span style="font-size:.875rem;color:var(--text-2);">ExchangeRate-API + Frankfurter API</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EKIP -->
+    <div class="tag">Ekip</div>
+    <h2 class="section-title">Proje <span>Ekibi</span></h2>
+    <p class="section-sub">Bu proje asagidaki ekip tarafindan gelistirilmistir.</p>
+    <div class="grid-3" style="margin-bottom:56px;">
+      <div class="team-card">
+        <div class="team-avatar">YR</div>
+        <div class="team-name">Yusuf Ramazanoglu</div>
+        <div class="team-role">Frontend & Backend Gelistirici</div>
+      </div>
+    </div>
+
+    <!-- ILETISIM -->
+    <div class="tag">Iletisim</div>
+    <h2 class="section-title">Bize <span>Ulasin</span></h2>
+    <p class="section-sub">Mesajin dogrudan bize ulasir — Gmail SMTP ile gercek mail gonderimi.</p>
+
+    <div class="iletisim-grid">
+      <div>
+        <div class="form-group">
+          <label class="form-label">Adiniz Soyadiniz *</label>
+          <input id="f-adsoyad" type="text" class="form-input" placeholder="Ali Yilmaz"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-posta *</label>
+          <input id="f-email" type="email" class="form-input" placeholder="ornek@email.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Konu *</label>
+          <input id="f-konu" type="text" class="form-input" placeholder="Mesajinizin konusu"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mesaj *</label>
+          <textarea id="f-mesaj" class="form-textarea" placeholder="Mesajinizi buraya yaziniz..."></textarea>
+        </div>
+        <button class="btn btn-primary" id="gonder-btn" onclick="formGonder()">Gonder</button>
+        <div id="form-success" class="form-success">✓ Mesajiniz gonderildi! En kisa surede geri donecegiz.</div>
+        <div id="form-error"   class="form-error"></div>
+      </div>
+
+      <div class="iletisim-info">
+        <div class="iletisim-item">
+          <div class="iletisim-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><h4>E-posta</h4><p>yousefalrmdan@gmail.com</p></div>
+        </div>
+        <div class="iletisim-item">
+          <div class="iletisim-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><h4>Konum</h4><p>Bartin Universitesi, Bartin, Turkiye</p></div>
+        </div>
+        <div class="iletisim-item">
+          <div class="iletisim-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div><h4>Ders</h4><p>Internet Tabanli Programlama - 2025/2026 Bahar</p></div>
+        </div>
+        <div class="iletisim-item">
+          <div class="iletisim-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><h4>Yanit Suresi</h4><p>Genellikle 24 saat icerisinde yanit verilmektedir.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="color:#fff;">
+          <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          Forex<span style="color:var(--orange);">Analiz</span>
+        </div>
+        <p>Doviz piyasalarini anlamak isteyenler icin kapsamli bir analiz platformu.</p>
+        <p class="footer-disclaimer">Bu platform yatirim tavsiyesi vermez.</p>
+      </div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul>
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="piyasalar.html">Piyasalar</a></li>
+        <li><a href="chart.html">Chart</a></li>
+        <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hesap</h4><ul>
+        <li><a href="giris.html">Giris Yap</a></li>
+        <li><a href="kayit.html">Uye Ol</a></li>
+        <li><a href="profil.html">Profilim</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Iletisim</h4><ul>
+        <li><a href="hakkinda.html">Hakkimizda</a></li>
+        <li><a href="hakkinda.html">Bize Ulasin</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 ForexAnaliz. Tum haklari saklidir.</span>
+      <span>Egitim amacli icerik.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="api.js"></script>
+<script>
+async function formGonder() {
+  const adSoyad = document.getElementById("f-adsoyad").value.trim();
+  const email   = document.getElementById("f-email").value.trim();
+  const konu    = document.getElementById("f-konu").value.trim();
+  const mesaj   = document.getElementById("f-mesaj").value.trim();
+  const ok      = document.getElementById("form-success");
+  const err     = document.getElementById("form-error");
+  const btn     = document.getElementById("gonder-btn");
+
+  ok.style.display = err.style.display = "none";
+
+  if (!adSoyad||!email||!konu||!mesaj) {
+    err.textContent = "Lutfen tum alanlari doldurun.";
+    err.style.display = "block"; return;
+  }
+
+  btn.textContent = "Gonderiliyor...";
+  btn.disabled    = true;
+
+  try {
+    await ForexAPI.contact({ ad_soyad: adSoyad, email, konu, mesaj });
+    ok.style.display = "block";
+    ["f-adsoyad","f-email","f-konu","f-mesaj"].forEach(id => document.getElementById(id).value = "");
+  } catch(e) {
+    err.textContent   = e.message || "Gonderim hatasi. Backend calisiyor mu?";
+    err.style.display = "block";
+  }
+
+  btn.textContent = "Gonder";
+  btn.disabled    = false;
+}
+</script>
+</body>
+</html>

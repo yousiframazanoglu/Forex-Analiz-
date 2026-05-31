@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>ForexAnaliz — Chart</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body { background: var(--bg); }
+    .chart-layout { display:grid; grid-template-columns:220px 1fr; min-height:calc(100vh - 64px); }
+    .chart-sidebar { background:var(--surface); border-right:1px solid var(--border); padding:0; overflow-y:auto; }
+    .sidebar-header { padding:14px 16px; border-bottom:1px solid var(--border); font-size:.78rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--text-3); }
+    .symbol-item { padding:10px 16px; cursor:pointer; border-bottom:1px solid var(--border-soft); transition:background .15s; display:flex; justify-content:space-between; align-items:center; }
+    .symbol-item:hover { background:var(--orange-pale); }
+    .symbol-item.active { background:var(--orange-pale); border-left:3px solid var(--orange); }
+    .symbol-name { font-size:.85rem; font-weight:600; }
+    .symbol-price { font-size:.82rem; font-family:var(--font-mono); }
+    .symbol-chg   { font-size:.72rem; }
+    .chart-main { display:flex; flex-direction:column; }
+    .chart-toolbar { background:var(--surface); border-bottom:1px solid var(--border); padding:10px 16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+    .chart-symbol-info { font-family:var(--font-display); font-size:1.3rem; font-weight:700; }
+    .chart-price-info  { font-family:var(--font-mono); font-size:1.1rem; }
+    .tf-btn { padding:5px 12px; font-size:.78rem; font-weight:600; border:1.5px solid var(--border); border-radius:var(--radius-sm); cursor:pointer; background:transparent; color:var(--text-2); transition:.15s; }
+    .tf-btn:hover  { border-color:var(--orange); color:var(--orange); }
+    .tf-btn.active { background:var(--orange); color:#fff; border-color:var(--orange); }
+    .chart-wrap { flex:1; position:relative; min-height:420px; }
+    .chart-wrap canvas { display:block; width:100%; height:100%; cursor:crosshair; }
+    .chart-stats { background:var(--surface); border-top:1px solid var(--border); padding:12px 20px; display:flex; gap:24px; flex-wrap:wrap; }
+    .stat-item { font-size:.8rem; }
+    .stat-label { color:var(--text-4); margin-right:4px; }
+    .stat-val   { font-family:var(--font-mono); font-weight:600; }
+    .fav-btn { background:none; border:none; cursor:pointer; font-size:1.1rem; padding:0 4px; }
+    @media(max-width:768px){ .chart-layout{grid-template-columns:1fr;} .chart-sidebar{display:none;} }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      Forex<span>Analiz</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="piyasalar.html">Piyasalar</a></li>
+      <li><a href="chart.html" class="active">Chart</a></li>
+      <li><a href="analiz.html">Teknik Analiz</a></li>
+      <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      <li><a href="haberler.html">Haberler</a></li>
+    </ul>
+    <div id="nav-auth" style="display:flex;gap:8px;"></div>
+  </div>
+</nav>
+
+<div class="chart-layout">
+  <!-- SOL: Sembol listesi -->
+  <div class="chart-sidebar">
+    <div class="sidebar-header">Pariteler</div>
+    <div id="symbol-list">
+      <div style="padding:20px;text-align:center;color:var(--text-4);font-size:.82rem;">Yukleniyor...</div>
+    </div>
+  </div>
+
+  <!-- SAĞ: Chart alanı -->
+  <div class="chart-main">
+    <!-- Toolbar -->
+    <div class="chart-toolbar">
+      <div>
+        <div class="chart-symbol-info" id="chart-symbol">EUR/USD</div>
+        <div style="font-size:.75rem;color:var(--text-3);" id="chart-name">Euro / Amerikan Dolari</div>
+      </div>
+      <div>
+        <div class="chart-price-info" id="chart-price">–</div>
+        <div id="chart-change" style="font-size:.82rem;">–</div>
+      </div>
+      <div style="display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;">
+        <button class="tf-btn active" onclick="setTF('1D',this)">1G</button>
+        <button class="tf-btn"        onclick="setTF('1W',this)">1H</button>
+        <button class="tf-btn"        onclick="setTF('1M',this)">1A</button>
+      </div>
+      <button class="fav-btn" id="fav-btn" onclick="toggleFav()" title="Favorilere ekle">☆</button>
+    </div>
+
+    <!-- Canvas -->
+    <div class="chart-wrap" id="chart-wrap">
+      <canvas id="main-chart" data-symbol="EUR/USD"></canvas>
+    </div>
+
+    <!-- İstatistikler -->
+    <div class="chart-stats" id="chart-stats">
+      <div class="stat-item"><span class="stat-label">Alis:</span><span class="stat-val" id="s-bid">–</span></div>
+      <div class="stat-item"><span class="stat-label">Satis:</span><span class="stat-val" id="s-ask">–</span></div>
+      <div class="stat-item"><span class="stat-label">Acilis:</span><span class="stat-val" id="s-open">–</span></div>
+      <div class="stat-item"><span class="stat-label">Yuksek:</span><span class="stat-val" id="s-high">–</span></div>
+      <div class="stat-item"><span class="stat-label">Dusuk:</span><span class="stat-val" id="s-low">–</span></div>
+      <div class="stat-item"><span class="stat-label">Degisim:</span><span class="stat-val" id="s-chg">–</span></div>
+    </div>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script src="chart.js"></script>
+<script>
+let chart       = new CandleChart("main-chart");
+let currentSym  = "EUR/USD";
+let currentTF   = "1D";
+let prices      = [];
+let favorites   = [];
+let allPrices   = {};
+
+const NAMES = {
+  "EUR/USD":"Euro / Amerikan Dolari","GBP/USD":"Sterlin / Amerikan Dolari",
+  "USD/JPY":"Dolar / Japon Yeni","USD/CHF":"Dolar / Isvicre Frangi",
+  "AUD/USD":"Avustralya Dolari / Dolar","USD/CAD":"Dolar / Kanada Dolari",
+  "NZD/USD":"NZD / Dolar","EUR/GBP":"Euro / Sterlin",
+  "EUR/JPY":"Euro / Japon Yeni","GBP/JPY":"Sterlin / Japon Yeni",
+  "USD/TRY":"Dolar / Turk Lirasi","EUR/TRY":"Euro / Turk Lirasi","XAU/USD":"Altin (Ons)",
+};
+
+// Fiyatları yükle ve sembol listesini oluştur
+async function loadPrices() {
+  try {
+    const res = await ForexAPI.getPrices();
+    prices = res.data;
+    prices.forEach(p => { allPrices[p.symbol] = p; });
+    renderSymbolList();
+    updateChartInfo();
+  } catch(e) {
+    console.warn("Fiyat hatasi:", e);
+  }
+}
+
+function renderSymbolList() {
+  const list = document.getElementById("symbol-list");
+  list.innerHTML = prices.map(p => {
+    const up    = p.change_pct >= 0;
+    const isFav = favorites.includes(p.symbol);
+    return `<div class="symbol-item ${p.symbol===currentSym?'active':''}"
+                 onclick="selectSymbol('${p.symbol}')">
+      <div>
+        <div class="symbol-name">${p.symbol} ${isFav?'★':''}</div>
+        <div class="symbol-price">${p.bid}</div>
+      </div>
+      <div class="symbol-chg" style="color:${up?'var(--green)':'var(--red)'}">
+        ${up?'+':''}${p.change_pct.toFixed(2)}%
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateChartInfo() {
+  const p = allPrices[currentSym];
+  if (!p) return;
+  const up = p.change_pct >= 0;
+  document.getElementById("chart-price").textContent  = p.bid;
+  document.getElementById("chart-price").style.color  = up?"var(--green)":"var(--red)";
+  document.getElementById("chart-change").textContent = `${up?'+':''}${p.change_pct.toFixed(2)}%`;
+  document.getElementById("chart-change").style.color = up?"var(--green)":"var(--red)";
+  document.getElementById("s-bid").textContent  = p.bid;
+  document.getElementById("s-ask").textContent  = p.ask;
+  document.getElementById("s-chg").textContent  = `${up?'+':''}${p.change_pct.toFixed(2)}%`;
+  document.getElementById("s-chg").style.color  = up?"var(--green)":"var(--red)";
+  document.getElementById("fav-btn").textContent = favorites.includes(currentSym) ? "★" : "☆";
+}
+
+async function selectSymbol(sym) {
+  currentSym = sym;
+  document.getElementById("chart-symbol").textContent = sym;
+  document.getElementById("chart-name").textContent   = NAMES[sym] || sym;
+  document.getElementById("main-chart").dataset.symbol = sym;
+  document.querySelectorAll(".symbol-item").forEach(el => {
+    el.classList.toggle("active", el.textContent.trim().startsWith(sym));
+  });
+  updateChartInfo();
+  await loadCandles();
+}
+
+async function loadCandles() {
+  try {
+    const res = await ForexAPI.getCandles(currentSym, currentTF);
+    chart.load(res.data);
+    if (res.data.length) {
+      const last = res.data[res.data.length-1];
+      document.getElementById("s-open").textContent = last.open;
+      document.getElementById("s-high").textContent = last.high;
+      document.getElementById("s-low").textContent  = last.low;
+    }
+  } catch(e) {
+    console.warn("Candle hatasi:", e);
+  }
+}
+
+function setTF(tf, btn) {
+  currentTF = tf;
+  document.querySelectorAll(".tf-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  loadCandles();
+}
+
+async function toggleFav() {
+  if (!Auth.isLoggedIn()) { window.location.href="giris.html"; return; }
+  const sym = currentSym;
+  if (favorites.includes(sym)) {
+    await ForexAPI.removeFavorite(sym);
+    favorites = favorites.filter(f=>f!==sym);
+  } else {
+    await ForexAPI.addFavorite(sym);
+    favorites.push(sym);
+  }
+  renderSymbolList();
+  document.getElementById("fav-btn").textContent = favorites.includes(sym)?"★":"☆";
+}
+
+// WebSocket ile canlı güncelleme
+const stream = new PriceStream(data => {
+  data.forEach(p => { allPrices[p.symbol] = p; });
+  renderSymbolList();
+  updateChartInfo();
+});
+
+// Başlat
+(async () => {
+  if (Auth.isLoggedIn()) {
+    try { const r=await ForexAPI.getFavorites(); favorites=r.data||[]; } catch{}
+  }
+  await loadPrices();
+  await loadCandles();
+})();
+</script>
+</body>
+</html>

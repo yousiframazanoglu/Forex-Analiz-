@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>ForexAnaliz — Giris Yap</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .auth-wrap { min-height: calc(100vh - 64px); display:flex; align-items:center; justify-content:center; padding:40px 16px; }
+    .auth-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:40px; width:100%; max-width:420px; box-shadow:var(--shadow); }
+    .auth-logo { text-align:center; margin-bottom:28px; }
+    .auth-logo h2 { font-family:var(--font-display); font-size:1.6rem; }
+    .auth-logo h2 span { color:var(--orange); }
+    .form-group { margin-bottom:16px; }
+    .form-label { display:block; font-size:.82rem; font-weight:600; color:var(--text-2); margin-bottom:5px; }
+    .form-input { width:100%; padding:10px 14px; font-family:var(--font-body); font-size:.875rem; color:var(--text-1); background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-sm); outline:none; transition:border-color .18s; box-sizing:border-box; }
+    .form-input:focus { border-color:var(--orange); }
+    .auth-footer { text-align:center; margin-top:20px; font-size:.85rem; color:var(--text-3); }
+    .auth-footer a { color:var(--orange); font-weight:600; }
+    .err-box { display:none; background:var(--red-bg); border:1px solid var(--red); color:var(--red); border-radius:var(--radius-sm); padding:10px 14px; font-size:.82rem; margin-bottom:14px; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      Forex<span>Analiz</span>
+    </a>
+    <div id="nav-auth" style="display:flex;gap:8px;"></div>
+  </div>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <h2>Forex<span>Analiz</span></h2>
+      <p style="font-size:.875rem;color:var(--text-3);margin-top:4px;">Hesabina giris yap</p>
+    </div>
+    <div id="err-box" class="err-box"></div>
+    <div class="form-group">
+      <label class="form-label">E-posta</label>
+      <input id="email" type="email" class="form-input" placeholder="ornek@email.com"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Sifre</label>
+      <input id="password" type="password" class="form-input" placeholder="••••••"/>
+    </div>
+    <div style="text-align:right;margin-bottom:16px;">
+      <a href="sifre-sifirla.html" style="font-size:.8rem;color:var(--orange);">Sifremi unuttum</a>
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" id="giris-btn" onclick="girisYap()">
+      Giris Yap
+    </button>
+    <div class="auth-footer">
+      Hesabin yok mu? <a href="kayit.html">Uye Ol</a>
+    </div>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+// Zaten giriş yaptıysa yönlendir
+if (Auth.isLoggedIn()) window.location.href = "index.html";
+
+async function girisYap() {
+  const email    = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const errBox   = document.getElementById("err-box");
+  const btn      = document.getElementById("giris-btn");
+
+  errBox.style.display = "none";
+  if (!email || !password) { errBox.textContent="Tum alanlari doldurun"; errBox.style.display="block"; return; }
+
+  btn.textContent = "Giris yapiliyor...";
+  btn.disabled    = true;
+
+  try {
+    await AuthAPI.login(email, password);
+    window.location.href = "index.html";
+  } catch(e) {
+    errBox.textContent   = e.message;
+    errBox.style.display = "block";
+  }
+  btn.textContent = "Giris Yap";
+  btn.disabled    = false;
+}
+
+document.addEventListener("keydown", e => { if(e.key==="Enter") girisYap(); });
+</script>
+</body>
+</html>

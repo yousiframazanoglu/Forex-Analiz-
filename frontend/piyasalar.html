@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForexAnaliz - Piyasalar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      Forex<span>Analiz</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="piyasalar.html" class="active">Piyasalar</a></li>
+      <li><a href="chart.html">Chart</a></li>
+      <li><a href="analiz.html">Teknik Analiz</a></li>
+      <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      <li><a href="haberler.html">Haberler</a></li>
+      <li><a href="hakkinda.html">Hakkinda</a></li>
+    </ul>
+    <div id="nav-auth" style="display:flex;gap:8px;"></div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="tag">Canli Piyasa Verileri</div>
+    <h1>Piyasalar</h1>
+    <p>Majör, minör ve egzotik doviz ciftlerinin gercek zamanli kur verileri.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div class="tag">Majör Pariteler</div>
+        <h2 class="section-title">Majör <span>Doviz Ciftleri</span></h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span id="ws-status" style="font-size:.75rem;color:var(--green);">● Canli</span>
+        <span id="son-guncelleme" style="font-size:.75rem;color:var(--text-4);"></span>
+      </div>
+    </div>
+
+    <div class="card" style="overflow:hidden;margin-bottom:48px;">
+      <table class="data-table">
+        <thead><tr>
+          <th>Parite</th><th>Alis</th><th>Satis</th>
+          <th>Degisim</th><th>Durum</th><th>Chart</th>
+        </tr></thead>
+        <tbody id="major-tbody">
+          <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-4);">Yukleniyor...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tag">Minör Pariteler</div>
+    <h2 class="section-title">Minör <span>Doviz Ciftleri</span></h2>
+    <p class="section-sub">Amerikan Dolari icermeyen capraz pariteler.</p>
+    <div class="card" style="overflow:hidden;margin-bottom:48px;">
+      <table class="data-table">
+        <thead><tr>
+          <th>Parite</th><th>Alis</th><th>Satis</th>
+          <th>Degisim</th><th>Durum</th><th>Chart</th>
+        </tr></thead>
+        <tbody id="minor-tbody">
+          <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-4);">Yukleniyor...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tag">Emtia ve TL</div>
+    <h2 class="section-title">Emtia ve <span>TL Pariteleri</span></h2>
+    <div class="card" style="overflow:hidden;margin-bottom:32px;">
+      <table class="data-table">
+        <thead><tr>
+          <th>Enstruman</th><th>Alis</th><th>Satis</th>
+          <th>Degisim</th><th>Durum</th><th>Chart</th>
+        </tr></thead>
+        <tbody id="emtia-tbody">
+          <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-4);">Yukleniyor...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box">
+      <strong>Bilgi:</strong> Kur verileri backend API uzerinden gercek zamanli olarak cekilmektedir. WebSocket ile 30 saniyede bir otomatik guncellenir.
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="color:#fff;">
+          <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          Forex<span style="color:var(--orange);">Analiz</span>
+        </div>
+        <p>Doviz piyasalarini anlamak isteyenler icin kapsamli bir analiz platformu.</p>
+        <p class="footer-disclaimer">Bu platform yatirim tavsiyesi vermez.</p>
+      </div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul>
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="piyasalar.html">Piyasalar</a></li>
+        <li><a href="chart.html">Chart</a></li>
+        <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hesap</h4><ul>
+        <li><a href="giris.html">Giris Yap</a></li>
+        <li><a href="kayit.html">Uye Ol</a></li>
+        <li><a href="profil.html">Profilim</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Iletisim</h4><ul>
+        <li><a href="hakkinda.html">Hakkimizda</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 ForexAnaliz. Tum haklari saklidir.</span>
+      <span>Egitim amacli icerik.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="api.js"></script>
+<script>
+const MAJOR = ["EUR/USD","GBP/USD","USD/JPY","USD/CHF","AUD/USD","USD/CAD","NZD/USD"];
+const MINOR = ["EUR/GBP","EUR/JPY","GBP/JPY"];
+const EMTIA = ["USD/TRY","EUR/TRY","XAU/USD"];
+const NAMES = {
+  "EUR/USD":"Euro / Dolar","GBP/USD":"Sterlin / Dolar","USD/JPY":"Dolar / JPY",
+  "USD/CHF":"Dolar / CHF","AUD/USD":"AUD / Dolar","USD/CAD":"Dolar / CAD",
+  "NZD/USD":"NZD / Dolar","EUR/GBP":"Euro / Sterlin","EUR/JPY":"Euro / JPY",
+  "GBP/JPY":"Sterlin / JPY","USD/TRY":"Dolar / TL","EUR/TRY":"Euro / TL",
+  "XAU/USD":"Altin (Ons)",
+};
+
+function row(p) {
+  const up = p.change_pct >= 0;
+  return `<tr>
+    <td><strong>${p.symbol}</strong><br>
+        <small style="color:var(--text-4);font-size:.75rem;">${NAMES[p.symbol]||""}</small></td>
+    <td class="val-mono">${p.bid}</td>
+    <td class="val-mono">${p.ask}</td>
+    <td class="${up?"val-up":"val-down"}">${up?"+":""}${p.change_pct.toFixed(2)}%</td>
+    <td><span class="badge ${up?"badge-green":p.change_pct===0?"badge-orange":"badge-red"}">
+      ${up?"Al":p.change_pct===0?"Notr":"Sat"}</span></td>
+    <td><a href="chart.html?sym=${encodeURIComponent(p.symbol)}"
+           class="btn btn-ghost" style="font-size:.75rem;padding:4px 10px;">Chart →</a></td>
+  </tr>`;
+}
+
+function render(data) {
+  const bySymbol = {};
+  data.forEach(p => bySymbol[p.symbol] = p);
+
+  document.getElementById("major-tbody").innerHTML =
+    MAJOR.map(s => bySymbol[s] ? row(bySymbol[s]) : "").join("");
+  document.getElementById("minor-tbody").innerHTML =
+    MINOR.map(s => bySymbol[s] ? row(bySymbol[s]) : "").join("");
+  document.getElementById("emtia-tbody").innerHTML =
+    EMTIA.map(s => bySymbol[s] ? row(bySymbol[s]) : "").join("");
+
+  const now = new Date();
+  document.getElementById("son-guncelleme").textContent =
+    now.toLocaleTimeString("tr-TR",{hour:"2-digit",minute:"2-digit"});
+}
+
+const stream = new PriceStream(render);
+ForexAPI.getPrices().then(r => render(r.data)).catch(()=>{});
+</script>
+</body>
+</html>

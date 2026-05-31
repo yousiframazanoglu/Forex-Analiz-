@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>ForexAnaliz — Sifre Sifirla</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .auth-wrap{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:40px 16px;}
+    .auth-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px;width:100%;max-width:420px;box-shadow:var(--shadow);}
+    .form-group{margin-bottom:16px;}
+    .form-label{display:block;font-size:.82rem;font-weight:600;color:var(--text-2);margin-bottom:5px;}
+    .form-input{width:100%;padding:10px 14px;font-family:var(--font-body);font-size:.875rem;color:var(--text-1);background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);outline:none;transition:border-color .18s;box-sizing:border-box;}
+    .form-input:focus{border-color:var(--orange);}
+    .ok-box{display:none;background:var(--green-bg);border:1px solid var(--green);color:var(--green);border-radius:var(--radius-sm);padding:10px 14px;font-size:.82rem;margin-bottom:14px;}
+    .err-box{display:none;background:var(--red-bg);border:1px solid var(--red);color:var(--red);border-radius:var(--radius-sm);padding:10px 14px;font-size:.82rem;margin-bottom:14px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      Forex<span>Analiz</span>
+    </a>
+  </div>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <!-- Adım 1: Email gir -->
+    <div id="step1">
+      <h2 style="font-family:var(--font-display);margin-bottom:8px;">Sifremi Unuttum</h2>
+      <p style="font-size:.875rem;color:var(--text-3);margin-bottom:24px;">E-posta adresinizi girin, sifre sifirlama linki gonderelim.</p>
+      <div id="err1" class="err-box"></div>
+      <div id="ok1"  class="ok-box"></div>
+      <div class="form-group">
+        <label class="form-label">E-posta</label>
+        <input id="email" type="email" class="form-input" placeholder="ornek@email.com"/>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="sendReset()">Link Gonder</button>
+      <div style="text-align:center;margin-top:16px;">
+        <a href="giris.html" style="font-size:.82rem;color:var(--orange);">← Girise Don</a>
+      </div>
+    </div>
+
+    <!-- Adım 2: Token + yeni şifre (URL'de token varsa) -->
+    <div id="step2" style="display:none;">
+      <h2 style="font-family:var(--font-display);margin-bottom:8px;">Yeni Sifre</h2>
+      <div id="err2" class="err-box"></div>
+      <div id="ok2"  class="ok-box"></div>
+      <div class="form-group">
+        <label class="form-label">Yeni Sifre</label>
+        <input id="newpass"  type="password" class="form-input" placeholder="••••••"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tekrar</label>
+        <input id="newpass2" type="password" class="form-input" placeholder="••••••"/>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="doReset()">Sifreyi Guncelle</button>
+    </div>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+// Token URL'de varsa adım 2'yi göster
+const token = new URLSearchParams(window.location.search).get("token");
+if (token) {
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("step2").style.display = "block";
+}
+
+async function sendReset() {
+  const email = document.getElementById("email").value.trim();
+  const err=document.getElementById("err1"), ok=document.getElementById("ok1");
+  err.style.display=ok.style.display="none";
+  if(!email){ err.textContent="Email girin"; err.style.display="block"; return; }
+  try {
+    await AuthAPI.forgotPassword(email);
+    ok.textContent="Eger bu email kayitliysa sifre sifirlama linki gonderildi.";
+    ok.style.display="block";
+  } catch(e){ err.textContent=e.message; err.style.display="block"; }
+}
+
+async function doReset() {
+  const pass=document.getElementById("newpass").value;
+  const err=document.getElementById("err2"), ok=document.getElementById("ok2");
+  err.style.display=ok.style.display="none";
+  if(pass!==document.getElementById("newpass2").value){ err.textContent="Sifreler eslesmiyor"; err.style.display="block"; return; }
+  try {
+    await AuthAPI.resetPassword(token, pass);
+    ok.textContent="✓ Sifre guncellendi! 3 saniye sonra giris sayfasina yonlendiriliyorsunuz...";
+    ok.style.display="block";
+    setTimeout(()=>window.location.href="giris.html", 3000);
+  } catch(e){ err.textContent=e.message; err.style.display="block"; }
+}
+</script>
+</body>
+</html>

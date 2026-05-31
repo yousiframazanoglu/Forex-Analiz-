@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>ForexAnaliz — Profilim</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .profile-grid{display:grid;grid-template-columns:260px 1fr;gap:28px;align-items:start;}
+    .profile-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+    .avatar{width:72px;height:72px;background:var(--orange-pale);border:2px solid var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;color:var(--orange);font-family:var(--font-display);margin:0 auto 16px;}
+    .tab-bar{display:flex;gap:4px;margin-bottom:24px;flex-wrap:wrap;}
+    .tab-btn{padding:8px 18px;font-size:.82rem;font-weight:600;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;background:transparent;color:var(--text-2);transition:.15s;}
+    .tab-btn.active{background:var(--orange);color:#fff;border-color:var(--orange);}
+    .tab-panel{display:none;}
+    .tab-panel.active{display:block;}
+    .form-group{margin-bottom:16px;}
+    .form-label{display:block;font-size:.82rem;font-weight:600;color:var(--text-2);margin-bottom:5px;}
+    .form-input{width:100%;padding:9px 13px;font-family:var(--font-body);font-size:.875rem;color:var(--text-1);background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);outline:none;transition:border-color .18s;box-sizing:border-box;}
+    .form-input:focus{border-color:var(--orange);}
+    .ok-msg{display:none;color:var(--green);font-size:.82rem;margin-top:8px;}
+    .err-msg{display:none;color:var(--red);font-size:.82rem;margin-top:8px;}
+    .alert-row,.note-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-soft);}
+    .del-btn{background:none;border:none;cursor:pointer;color:var(--red);font-size:1rem;padding:0 4px;}
+    @media(max-width:768px){.profile-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      Forex<span>Analiz</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="piyasalar.html">Piyasalar</a></li>
+      <li><a href="chart.html">Chart</a></li>
+    </ul>
+    <div id="nav-auth" style="display:flex;gap:8px;"></div>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    <div class="profile-grid">
+
+      <!-- Sol kart -->
+      <div class="profile-card" style="text-align:center;">
+        <div class="avatar" id="avatar-text">?</div>
+        <div id="user-name" style="font-size:1rem;font-weight:700;">–</div>
+        <div id="user-email" style="font-size:.82rem;color:var(--text-3);margin-bottom:8px;">–</div>
+        <div id="user-since" style="font-size:.75rem;color:var(--text-4);">–</div>
+        <div style="margin-top:20px;">
+          <button class="btn btn-outline" style="width:100%;justify-content:center;margin-bottom:8px;" onclick="setTab('profil')">Profili Duzenle</button>
+          <button class="btn btn-ghost"   style="width:100%;justify-content:center;" onclick="handleLogout()">Cikis Yap</button>
+        </div>
+      </div>
+
+      <!-- Sağ içerik -->
+      <div>
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="setTab('profil')">Profil</button>
+          <button class="tab-btn"        onclick="setTab('sifre')">Sifre</button>
+          <button class="tab-btn"        onclick="setTab('favoriler')">Favoriler</button>
+          <button class="tab-btn"        onclick="setTab('alarmlar')">Alarmlar</button>
+          <button class="tab-btn"        onclick="setTab('notlar')">Islem Notlari</button>
+        </div>
+
+        <!-- Profil -->
+        <div id="tab-profil" class="tab-panel active profile-card">
+          <h3 style="margin-bottom:20px;">Profil Bilgileri</h3>
+          <div class="form-group"><label class="form-label">Ad Soyad</label><input id="p-fullname" class="form-input"/></div>
+          <div class="form-group"><label class="form-label">Kullanici Adi</label><input id="p-username" class="form-input"/></div>
+          <div class="form-group"><label class="form-label">E-posta</label><input id="p-email" class="form-input" disabled style="opacity:.6;"/></div>
+          <button class="btn btn-primary" onclick="saveProfile()">Kaydet</button>
+          <div id="p-ok" class="ok-msg">✓ Profil guncellendi</div>
+          <div id="p-err" class="err-msg"></div>
+        </div>
+
+        <!-- Şifre -->
+        <div id="tab-sifre" class="tab-panel profile-card">
+          <h3 style="margin-bottom:20px;">Sifre Degistir</h3>
+          <div class="form-group"><label class="form-label">Mevcut Sifre</label><input id="s-old" type="password" class="form-input"/></div>
+          <div class="form-group"><label class="form-label">Yeni Sifre</label><input id="s-new" type="password" class="form-input"/></div>
+          <div class="form-group"><label class="form-label">Yeni Sifre Tekrar</label><input id="s-new2" type="password" class="form-input"/></div>
+          <button class="btn btn-primary" onclick="changePass()">Sifreyi Degistir</button>
+          <div id="s-ok" class="ok-msg">✓ Sifre guncellendi</div>
+          <div id="s-err" class="err-msg"></div>
+        </div>
+
+        <!-- Favoriler -->
+        <div id="tab-favoriler" class="tab-panel profile-card">
+          <h3 style="margin-bottom:20px;">Favori Pariteler</h3>
+          <div id="fav-list"><div style="color:var(--text-4);font-size:.85rem;">Yukleniyor...</div></div>
+        </div>
+
+        <!-- Alarmlar -->
+        <div id="tab-alarmlar" class="tab-panel profile-card">
+          <h3 style="margin-bottom:16px;">Fiyat Alarmlari</h3>
+          <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+            <select id="al-sym" class="form-input" style="max-width:140px;">
+              <option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option>
+              <option>USD/CHF</option><option>AUD/USD</option><option>USD/CAD</option>
+              <option>NZD/USD</option><option>USD/TRY</option><option>XAU/USD</option>
+            </select>
+            <select id="al-dir" class="form-input" style="max-width:120px;">
+              <option value="above">Yukari Asarsa</option>
+              <option value="below">Asagi Duserse</option>
+            </select>
+            <input id="al-target" type="number" step="0.0001" class="form-input" placeholder="Hedef fiyat" style="max-width:160px;"/>
+            <button class="btn btn-primary" onclick="createAlert()">Ekle</button>
+          </div>
+          <div id="alert-list"><div style="color:var(--text-4);font-size:.85rem;">Yukleniyor...</div></div>
+        </div>
+
+        <!-- İşlem Notları -->
+        <div id="tab-notlar" class="tab-panel profile-card">
+          <h3 style="margin-bottom:16px;">Islem Notlari</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+            <select id="n-sym" class="form-input">
+              <option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option>
+              <option>USD/TRY</option><option>XAU/USD</option>
+            </select>
+            <select id="n-dir" class="form-input">
+              <option value="buy">Al (Buy)</option><option value="sell">Sat (Sell)</option>
+            </select>
+            <input id="n-entry" type="number" step="0.00001" class="form-input" placeholder="Giris fiyati"/>
+            <input id="n-sl"    type="number" step="0.00001" class="form-input" placeholder="Stop Loss"/>
+            <input id="n-tp"    type="number" step="0.00001" class="form-input" placeholder="Take Profit"/>
+            <input id="n-lot"   type="number" step="0.01"    class="form-input" placeholder="Lot miktari"/>
+            <input id="n-note"  type="text"   class="form-input" placeholder="Not..." style="grid-column:span 2;"/>
+          </div>
+          <button class="btn btn-primary" onclick="createNote()">Not Ekle</button>
+          <div id="note-list" style="margin-top:20px;"><div style="color:var(--text-4);font-size:.85rem;">Yukleniyor...</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="api.js"></script>
+<script>
+// Auth kontrolü
+if (!Auth.isLoggedIn()) window.location.href = "giris.html";
+
+function setTab(name) {
+  document.querySelectorAll(".tab-btn").forEach((b,i) => {
+    const names = ["profil","sifre","favoriler","alarmlar","notlar"];
+    b.classList.toggle("active", names[i]===name);
+  });
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  document.getElementById(`tab-${name}`).classList.add("active");
+  if(name==="alarmlar")  loadAlerts();
+  if(name==="notlar")    loadNotes();
+  if(name==="favoriler") loadFavs();
+}
+
+// Profil yükle
+(async () => {
+  const me = await AuthAPI.getMe();
+  const ini = (me.full_name||me.username||"?")[0].toUpperCase();
+  document.getElementById("avatar-text").textContent = ini;
+  document.getElementById("user-name").textContent   = me.full_name || me.username;
+  document.getElementById("user-email").textContent  = me.email;
+  document.getElementById("user-since").textContent  = "Uye: " + me.created_at?.substring(0,10);
+  document.getElementById("p-fullname").value = me.full_name || "";
+  document.getElementById("p-username").value = me.username  || "";
+  document.getElementById("p-email").value    = me.email     || "";
+})();
+
+async function saveProfile() {
+  const ok=document.getElementById("p-ok"), err=document.getElementById("p-err");
+  ok.style.display=err.style.display="none";
+  try {
+    await AuthAPI.updateMe({
+      full_name: document.getElementById("p-fullname").value,
+      username:  document.getElementById("p-username").value,
+    });
+    ok.style.display="block";
+  } catch(e) { err.textContent=e.message; err.style.display="block"; }
+}
+
+async function changePass() {
+  const ok=document.getElementById("s-ok"), err=document.getElementById("s-err");
+  ok.style.display=err.style.display="none";
+  const n=document.getElementById("s-new").value;
+  if(n!==document.getElementById("s-new2").value){ err.textContent="Sifreler eslesmiyor"; err.style.display="block"; return; }
+  try {
+    await AuthAPI.changePassword(document.getElementById("s-old").value, n);
+    ok.style.display="block";
+  } catch(e) { err.textContent=e.message; err.style.display="block"; }
+}
+
+async function loadFavs() {
+  const el=document.getElementById("fav-list");
+  try {
+    const r=await ForexAPI.getFavorites();
+    if(!r.data.length){ el.innerHTML='<div style="color:var(--text-4);font-size:.85rem;">Favori parite eklemediniz. Chart sayfasindan ekleyebilirsiniz.</div>'; return; }
+    el.innerHTML=r.data.map(s=>`
+      <div class="alert-row">
+        <span style="font-weight:600;">${s}</span>
+        <a href="chart.html" style="font-size:.78rem;color:var(--orange);">Grafe Git →</a>
+        <button class="del-btn" onclick="removeFav('${s}')">✕</button>
+      </div>`).join('');
+  } catch(e){ el.innerHTML='<div style="color:var(--red);">Yukleme hatasi</div>'; }
+}
+
+async function removeFav(sym) {
+  await ForexAPI.removeFavorite(sym);
+  loadFavs();
+}
+
+async function loadAlerts() {
+  const el=document.getElementById("alert-list");
+  try {
+    const r=await ForexAPI.getAlerts();
+    if(!r.data.length){ el.innerHTML='<div style="color:var(--text-4);font-size:.85rem;">Alarm yok.</div>'; return; }
+    el.innerHTML=r.data.map(a=>`
+      <div class="alert-row">
+        <span class="badge badge-orange">${a.symbol}</span>
+        <span style="font-size:.85rem;">${a.direction==='above'?'↑ Yukari Asarsa':'↓ Asagi Duserse'} <strong>${a.target}</strong></span>
+        <span class="badge ${a.triggered?'badge-green':'badge-blue'}">${a.triggered?'Tetiklendi':'Aktif'}</span>
+        <button class="del-btn" onclick="deleteAlert(${a.id})">✕</button>
+      </div>`).join('');
+  } catch(e){ el.innerHTML='<div style="color:var(--red);">Yukleme hatasi</div>'; }
+}
+
+async function createAlert() {
+  await ForexAPI.createAlert({
+    symbol:    document.getElementById("al-sym").value,
+    direction: document.getElementById("al-dir").value,
+    target:    parseFloat(document.getElementById("al-target").value),
+  });
+  document.getElementById("al-target").value="";
+  loadAlerts();
+}
+
+async function deleteAlert(id) {
+  await ForexAPI.deleteAlert(id);
+  loadAlerts();
+}
+
+async function loadNotes() {
+  const el=document.getElementById("note-list");
+  try {
+    const r=await ForexAPI.getNotes();
+    if(!r.data.length){ el.innerHTML='<div style="color:var(--text-4);font-size:.85rem;">Not yok.</div>'; return; }
+    el.innerHTML=r.data.map(n=>`
+      <div class="note-row" style="flex-wrap:wrap;">
+        <span class="badge badge-orange">${n.symbol}</span>
+        <span class="badge ${n.direction==='buy'?'badge-green':'badge-red'}">${n.direction==='buy'?'Al':'Sat'}</span>
+        ${n.entry?`<span style="font-size:.8rem;">Giris: <strong>${n.entry}</strong></span>`:''}
+        ${n.sl?`<span style="font-size:.8rem;">SL: <strong>${n.sl}</strong></span>`:''}
+        ${n.tp?`<span style="font-size:.8rem;">TP: <strong>${n.tp}</strong></span>`:''}
+        ${n.lot?`<span style="font-size:.8rem;">Lot: <strong>${n.lot}</strong></span>`:''}
+        ${n.note?`<span style="font-size:.8rem;color:var(--text-3);">${n.note}</span>`:''}
+        <span style="font-size:.72rem;color:var(--text-4);margin-left:auto;">${n.created_at?.substring(0,10)}</span>
+        <button class="del-btn" onclick="deleteNote(${n.id})">✕</button>
+      </div>`).join('');
+  } catch(e){ el.innerHTML='<div style="color:var(--red);">Yukleme hatasi</div>'; }
+}
+
+async function createNote() {
+  await ForexAPI.createNote({
+    symbol:    document.getElementById("n-sym").value,
+    direction: document.getElementById("n-dir").value,
+    entry: parseFloat(document.getElementById("n-entry").value)||null,
+    sl:    parseFloat(document.getElementById("n-sl").value)||null,
+    tp:    parseFloat(document.getElementById("n-tp").value)||null,
+    lot:   parseFloat(document.getElementById("n-lot").value)||null,
+    note:  document.getElementById("n-note").value,
+  });
+  loadNotes();
+}
+
+async function deleteNote(id) {
+  await ForexAPI.deleteNote(id);
+  loadNotes();
+}
+</script>
+</body>
+</html>

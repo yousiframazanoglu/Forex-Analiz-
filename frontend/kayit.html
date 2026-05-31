@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>ForexAnaliz — Uye Ol</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .auth-wrap{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:40px 16px;}
+    .auth-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px;width:100%;max-width:440px;box-shadow:var(--shadow);}
+    .auth-logo{text-align:center;margin-bottom:28px;}
+    .auth-logo h2{font-family:var(--font-display);font-size:1.6rem;}
+    .auth-logo h2 span{color:var(--orange);}
+    .form-group{margin-bottom:16px;}
+    .form-label{display:block;font-size:.82rem;font-weight:600;color:var(--text-2);margin-bottom:5px;}
+    .form-input{width:100%;padding:10px 14px;font-family:var(--font-body);font-size:.875rem;color:var(--text-1);background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);outline:none;transition:border-color .18s;box-sizing:border-box;}
+    .form-input:focus{border-color:var(--orange);}
+    .auth-footer{text-align:center;margin-top:20px;font-size:.85rem;color:var(--text-3);}
+    .auth-footer a{color:var(--orange);font-weight:600;}
+    .err-box{display:none;background:var(--red-bg);border:1px solid var(--red);color:var(--red);border-radius:var(--radius-sm);padding:10px 14px;font-size:.82rem;margin-bottom:14px;}
+    .ok-box{display:none;background:var(--green-bg);border:1px solid var(--green);color:var(--green);border-radius:var(--radius-sm);padding:10px 14px;font-size:.82rem;margin-bottom:14px;}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      Forex<span>Analiz</span>
+    </a>
+    <div id="nav-auth" style="display:flex;gap:8px;"></div>
+  </div>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <h2>Forex<span>Analiz</span></h2>
+      <p style="font-size:.875rem;color:var(--text-3);margin-top:4px;">Ucretsiz hesap olustur</p>
+    </div>
+    <div id="err-box" class="err-box"></div>
+    <div id="ok-box"  class="ok-box"></div>
+    <div class="form-group">
+      <label class="form-label">Ad Soyad</label>
+      <input id="fullname" type="text" class="form-input" placeholder="Ali Yilmaz"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Kullanici Adi</label>
+      <input id="username" type="text" class="form-input" placeholder="aliyilmaz"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">E-posta</label>
+      <input id="email" type="email" class="form-input" placeholder="ornek@email.com"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Sifre <span style="color:var(--text-4);font-weight:400;">(en az 6 karakter)</span></label>
+      <input id="password" type="password" class="form-input" placeholder="••••••"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Sifre Tekrar</label>
+      <input id="password2" type="password" class="form-input" placeholder="••••••"/>
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;" id="kayit-btn" onclick="kayitOl()">
+      Uye Ol
+    </button>
+    <div class="auth-footer">
+      Zaten hesabin var mi? <a href="giris.html">Giris Yap</a>
+    </div>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+if (Auth.isLoggedIn()) window.location.href = "index.html";
+
+async function kayitOl() {
+  const fullname  = document.getElementById("fullname").value.trim();
+  const username  = document.getElementById("username").value.trim();
+  const email     = document.getElementById("email").value.trim();
+  const password  = document.getElementById("password").value;
+  const password2 = document.getElementById("password2").value;
+  const errBox    = document.getElementById("err-box");
+  const okBox     = document.getElementById("ok-box");
+  const btn       = document.getElementById("kayit-btn");
+
+  errBox.style.display = "none";
+  okBox.style.display  = "none";
+
+  if (!username||!email||!password) { errBox.textContent="Tum alanlari doldurun"; errBox.style.display="block"; return; }
+  if (password !== password2)       { errBox.textContent="Sifreler eslesmiyor";   errBox.style.display="block"; return; }
+  if (password.length < 6)          { errBox.textContent="Sifre en az 6 karakter olmalidir"; errBox.style.display="block"; return; }
+
+  btn.textContent = "Kayit yapiliyor...";
+  btn.disabled    = true;
+
+  try {
+    await AuthAPI.register(email, username, password, fullname);
+    okBox.textContent   = "✓ Kayit basarili! E-postanizi kontrol edin ve hesabinizi dogrulayin.";
+    okBox.style.display = "block";
+    btn.textContent     = "Gonderildi ✓";
+  } catch(e) {
+    errBox.textContent   = e.message;
+    errBox.style.display = "block";
+    btn.textContent      = "Uye Ol";
+    btn.disabled         = false;
+  }
+}
+</script>
+</body>
+</html>

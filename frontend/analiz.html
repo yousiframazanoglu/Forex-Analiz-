@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForexAnaliz - Teknik Analiz</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .analiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+    .level-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-soft); }
+    .level-row:last-child { border-bottom: none; }
+    .level-label { font-size:.78rem; font-weight:600; color:var(--text-3); text-transform:uppercase; letter-spacing:.05em; width: 100px; flex-shrink:0; }
+    .level-bar { flex:1; height:6px; background:var(--border); border-radius:99px; overflow:hidden; }
+    .level-fill { height:100%; border-radius:99px; }
+    .fill-res { background: var(--red); }
+    .fill-sup { background: var(--green); }
+    .fill-cur { background: var(--orange); }
+    .level-val { font-family:var(--font-mono); font-size:.85rem; font-weight:500; width:70px; text-align:right; }
+    .indicator-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+    .indicator-name { font-size:.82rem; font-weight:600; color:var(--text-3); margin-bottom:4px; }
+    .indicator-value { font-family:var(--font-mono); font-size:1.1rem; font-weight:500; color:var(--text-1); margin-bottom:8px; }
+    .signal-bar { display:flex; gap:3px; margin-bottom:6px; }
+    .signal-seg { height:8px; flex:1; border-radius:2px; }
+    .seg-on-green  { background:var(--green); }
+    .seg-on-red    { background:var(--red); }
+    .seg-on-orange { background:var(--orange); }
+    .seg-off       { background:var(--border); }
+    .concept-section { margin-bottom: 48px; }
+    .concept-section h3 { font-family:var(--font-display); font-size:1.3rem; margin-bottom:12px; }
+    .concept-section p  { font-size:.9rem; color:var(--text-2); line-height:1.75; margin-bottom:10px; }
+    .candle-row { display:flex; gap:16px; flex-wrap:wrap; }
+    .candle-item { background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 18px; min-width:160px; }
+    .candle-item h4 { font-size:.85rem; font-weight:600; margin-bottom:4px; }
+    .candle-item p  { font-size:.78rem; color:var(--text-3); line-height:1.5; }
+    @media(max-width:768px){ .analiz-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      </div>
+      Forex<span>Analiz</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="piyasalar.html">Piyasalar</a></li>
+      <li><a href="analiz.html" class="active">Teknik Analiz</a></li>
+      <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+      <li><a href="haberler.html">Haberler</a></li>
+      <li><a href="hakkinda.html">Hakkinda</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- SAYFA BASLIGI -->
+<div class="page-header">
+  <div class="container">
+    <div class="tag">Grafik ve Sinyal</div>
+    <h1>Teknik Analiz</h1>
+    <p>Destek/direnc seviyeleri, trend yapilari, temel indikatörler ve mum formasyonlari hakkinda aciklamalar ve ornek okumalar.</p>
+  </div>
+</div>
+
+<!-- GUNCEL TEKNIK OZET -->
+<section class="section">
+  <div class="container">
+    <div class="tag">Gunluk Ozet</div>
+    <h2 class="section-title">EUR/USD <span>Teknik Ozet</span></h2>
+    <p class="section-sub">5 Nisan 2026 - Gunluk periyot analizi</p>
+
+    <div class="analiz-grid">
+      <!-- Seviyeler -->
+      <div class="card">
+        <div class="card-header">
+          <strong style="font-size:.9rem;">Kritik Seviyeler</strong>
+        </div>
+        <div class="card-body">
+          <div class="level-row">
+            <span class="level-label" style="color:var(--red);">Direnc 3</span>
+            <div class="level-bar"><div class="level-fill fill-res" style="width:95%;"></div></div>
+            <span class="level-val" style="color:var(--red);">1,0920</span>
+          </div>
+          <div class="level-row">
+            <span class="level-label" style="color:var(--red);">Direnc 2</span>
+            <div class="level-bar"><div class="level-fill fill-res" style="width:82%;"></div></div>
+            <span class="level-val" style="color:var(--red);">1,0880</span>
+          </div>
+          <div class="level-row">
+            <span class="level-label" style="color:var(--red);">Direnc 1</span>
+            <div class="level-bar"><div class="level-fill fill-res" style="width:68%;"></div></div>
+            <span class="level-val" style="color:var(--red);">1,0861</span>
+          </div>
+          <div class="level-row">
+            <span class="level-label" style="color:var(--orange);">Guncel Fiyat</span>
+            <div class="level-bar"><div class="level-fill fill-cur" style="width:58%;"></div></div>
+            <span class="level-val" style="color:var(--orange);">1,0842</span>
+          </div>
+          <div class="level-row">
+            <span class="level-label" style="color:var(--green);">Destek 1</span>
+            <div class="level-bar"><div class="level-fill fill-sup" style="width:45%;"></div></div>
+            <span class="level-val" style="color:var(--green);">1,0798</span>
+          </div>
+          <div class="level-row">
+            <span class="level-label" style="color:var(--green);">Destek 2</span>
+            <div class="level-bar"><div class="level-fill fill-sup" style="width:30%;"></div></div>
+            <span class="level-val" style="color:var(--green);">1,0741</span>
+          </div>
+          <div class="level-row">
+            <span class="level-label" style="color:var(--green);">Destek 3</span>
+            <div class="level-bar"><div class="level-fill fill-sup" style="width:15%;"></div></div>
+            <span class="level-val" style="color:var(--green);">1,0680</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indikatörler -->
+      <div class="card">
+        <div class="card-header">
+          <strong style="font-size:.9rem;">Indikatör Sinyalleri</strong>
+        </div>
+        <div class="card-body">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="indicator-card">
+              <div class="indicator-name">RSI (14)</div>
+              <div class="indicator-value">58,4</div>
+              <div class="signal-bar">
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-off"></div>
+                <div class="signal-seg seg-off"></div>
+              </div>
+              <span class="badge badge-green">Yukselis</span>
+            </div>
+            <div class="indicator-card">
+              <div class="indicator-name">MACD</div>
+              <div class="indicator-value">+0,0012</div>
+              <div class="signal-bar">
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-off"></div>
+                <div class="signal-seg seg-off"></div>
+                <div class="signal-seg seg-off"></div>
+              </div>
+              <span class="badge badge-green">Al</span>
+            </div>
+            <div class="indicator-card">
+              <div class="indicator-name">Stoch (14,3)</div>
+              <div class="indicator-value">62,1</div>
+              <div class="signal-bar">
+                <div class="signal-seg seg-on-orange"></div>
+                <div class="signal-seg seg-on-orange"></div>
+                <div class="signal-seg seg-on-orange"></div>
+                <div class="signal-seg seg-off"></div>
+                <div class="signal-seg seg-off"></div>
+              </div>
+              <span class="badge badge-orange">Notr</span>
+            </div>
+            <div class="indicator-card">
+              <div class="indicator-name">CCI (14)</div>
+              <div class="indicator-value">+84,2</div>
+              <div class="signal-bar">
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-off"></div>
+                <div class="signal-seg seg-off"></div>
+              </div>
+              <span class="badge badge-green">Al</span>
+            </div>
+            <div class="indicator-card">
+              <div class="indicator-name">MA (20)</div>
+              <div class="indicator-value">1,0819</div>
+              <div class="signal-bar">
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-on-green"></div>
+                <div class="signal-seg seg-off"></div>
+              </div>
+              <span class="badge badge-green">Fiyat Ustunde</span>
+            </div>
+            <div class="indicator-card">
+              <div class="indicator-name">ATR (14)</div>
+              <div class="indicator-value">0,0063</div>
+              <div class="signal-bar">
+                <div class="signal-seg seg-on-orange"></div>
+                <div class="signal-seg seg-on-orange"></div>
+                <div class="signal-seg seg-off"></div>
+                <div class="signal-seg seg-off"></div>
+                <div class="signal-seg seg-off"></div>
+              </div>
+              <span class="badge badge-orange">Orta Volatilite</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GENEL SINYAL OZETI -->
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom: 32px;">
+      <div class="card" style="text-align:center; padding:20px;">
+        <div style="font-size:1.8rem; font-weight:700; color:var(--green); font-family:var(--font-mono);">6</div>
+        <div style="font-size:.78rem; font-weight:600; color:var(--text-3); text-transform:uppercase;">Al Sinyali</div>
+      </div>
+      <div class="card" style="text-align:center; padding:20px;">
+        <div style="font-size:1.8rem; font-weight:700; color:var(--orange); font-family:var(--font-mono);">3</div>
+        <div style="font-size:.78rem; font-weight:600; color:var(--text-3); text-transform:uppercase;">Notr</div>
+      </div>
+      <div class="card" style="text-align:center; padding:20px;">
+        <div style="font-size:1.8rem; font-weight:700; color:var(--red); font-family:var(--font-mono);">2</div>
+        <div style="font-size:.78rem; font-weight:600; color:var(--text-3); text-transform:uppercase;">Sat Sinyali</div>
+      </div>
+      <div class="card" style="text-align:center; padding:20px; border: 2px solid var(--green);">
+        <div style="font-size:1.1rem; font-weight:700; color:var(--green);">YUKSELIS</div>
+        <div style="font-size:.78rem; font-weight:600; color:var(--text-3); text-transform:uppercase;">Genel Trend</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEKNIK ANALIZ KAVRAMLARI -->
+<section class="section" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="tag">Temel Bilgiler</div>
+    <h2 class="section-title">Teknik Analiz <span>Kavramlari</span></h2>
+    <p class="section-sub">Grafik okuma ve analiz icin bilmeniz gereken temel yapi taslari.</p>
+
+    <div class="concept-section">
+      <div class="grid-2">
+        <div>
+          <h3>Destek ve Direnc Seviyeleri</h3>
+          <p>Destek seviyesi, fiyatin asagi dogru hareket ederken durup geri donme egilimi gosterdigi fiyat bolgesidir. Bu bolgelerde alicilar devreye girerek fiyati yukar iter. Direnc seviyesi ise fiyatin yukari dogru hareket ederken durakladigi, saticiların youn oldugu bolgedir.</p>
+          <p>Bu seviyeler gecmisteki fiyat tepkileri, hareketli ortalamalar veya Fibonacci geri cekilme seviyeleri gibi farkli yontemlerle belirlenir. Kirildiginda eski destek direnc, eski direnc ise destek haline gelir.</p>
+        </div>
+        <div>
+          <h3>Trend Analizi</h3>
+          <p>Forex'te trend, fiyatin genel hareket yonudur. Yukselis trendinde her dip ve tepe bir oncekinden yuksektir. Dusus trendinde ise tam tersi gecerlidir. Yatay trend, fiyatin belirli bir aralik icinde hareket ettigi donemi ifade eder.</p>
+          <p>Trend analizi icin en sik kullanilan arac trend cizgisidir. Bu cizgi, dip noktalari birlestirilarak yukselis trendinde veya tepe noktalari birlestirilarak dusus trendinde cizilir. Trend cizgisi kirildigi zaman trend donusumu sinyali olarak yorumlanir.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="concept-section">
+      <h3>Temel Indikatörler</h3>
+      <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:20px;">
+        <div class="card">
+          <div class="card-body">
+            <h4 style="font-size:.92rem; font-weight:600; margin-bottom:8px;">RSI - Relative Strength Index</h4>
+            <p style="font-size:.82rem; color:var(--text-3); line-height:1.65;">0-100 araliginda deger uren bir momentum indikatörudur. 70 uzeri asiri alim, 30 alti asiri satim bolgesi olarak kabul edilir. Uyumsuzluk (divergence) sinyalleri onemlidir.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 style="font-size:.92rem; font-weight:600; margin-bottom:8px;">MACD - Hareketli Ortalama Yakinsama/Iraksamasi</h4>
+            <p style="font-size:.82rem; color:var(--text-3); line-height:1.65;">Iki hareketli ortalama arasindaki farki gosterir. MACD cizgisinin sinyal cizgisini yukari kesmesi al, asagi kesmesi sat sinyali olarak degerlendirilir.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 style="font-size:.92rem; font-weight:600; margin-bottom:8px;">Bollinger Bandi</h4>
+            <p style="font-size:.82rem; color:var(--text-3); line-height:1.65;">Hareketli ortalamanin iki standart sapma uzaginda ust ve alt bantlar olusturur. Fiyat ust banda yaklastiginda asiri alim, alt banda yaklastiginda asiri satim sinyali verir.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 style="font-size:.92rem; font-weight:600; margin-bottom:8px;">Stochastic Osilatoru</h4>
+            <p style="font-size:.82rem; color:var(--text-3); line-height:1.65;">Fiyatin belirli bir periyottaki araliga gore konumunu olcer. %K ve %D cizgilerinin kesisimleri islem sinyali uretir. 80 uzeri ve 20 alti bolgeler kritiktir.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 style="font-size:.92rem; font-weight:600; margin-bottom:8px;">Hareketli Ortalamalar (MA)</h4>
+            <p style="font-size:.82rem; color:var(--text-3); line-height:1.65;">Basit (SMA) ve ustel (EMA) olmak uzere iki ana tur vardir. Kisa periyot MA'nin uzun periyot MA'yi kesmesi altin ve olum caci formasyonlarini olusturur.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h4 style="font-size:.92rem; font-weight:600; margin-bottom:8px;">Fibonacci Geri Cekilme</h4>
+            <p style="font-size:.82rem; color:var(--text-3); line-height:1.65;">Bir fiyat hareketinin ardindaki potansiyel destek/direnc seviyelerini belirler. %23,6 - %38,2 - %50 - %61,8 seviyeleri en cok kullanilan geri cekilme oranlaridir.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="concept-section">
+      <h3>Mum Grafigi Formasyonlari</h3>
+      <p>Japon mum grafikleri, acilis, kapanis, yuksek ve dusuk fiyati tek bir gorsel unsurda birlestirir. Her mumun rengi ve golge uzunlugu piyasa duyarliligini yansitir.</p>
+      <div class="candle-row">
+        <div class="candle-item">
+          <h4 style="color:var(--green);">Hammer (Cekic)</h4>
+          <p>Kucuk govde, uzun alt golge. Dusus trendinin sonunda olusursa yukselis donumu sinyali verir.</p>
+        </div>
+        <div class="candle-item">
+          <h4 style="color:var(--red);">Shooting Star</h4>
+          <p>Kucuk govde, uzun ust golge. Yukselis trendinin sonunda dusus donumu sinyali olarak yorumlanir.</p>
+        </div>
+        <div class="candle-item">
+          <h4 style="color:var(--green);">Bullish Engulfing</h4>
+          <p>Buyuk yesil mum, bir onceki kirmizi mumu tamamen yutar. Guclu al sinyali.</p>
+        </div>
+        <div class="candle-item">
+          <h4 style="color:var(--red);">Bearish Engulfing</h4>
+          <p>Buyuk kirmizi mum, bir onceki yesil mumu tamamen yutar. Guclu sat sinyali.</p>
+        </div>
+        <div class="candle-item">
+          <h4 style="color:var(--orange);">Doji</h4>
+          <p>Acilis ve kapanis neredeyse esittir. Piyasada kararsizligi temsil eder, trend donumu habercisi olabilir.</p>
+        </div>
+        <div class="candle-item">
+          <h4 style="color:var(--blue);">Morning Star</h4>
+          <p>Uc mumlu formasyondur. Dusus trendinin ardinda olusan yukselis donumu formasyonu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="color:#fff;">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          Forex<span style="color:var(--orange);">Analiz</span>
+        </div>
+        <p>Doviz piyasalarini anlamak isteyenler icin kapsamli bir analiz ve bilgi platformu.</p>
+        <p class="footer-disclaimer">Bu platform yatirim tavsiyesi vermez. Tum icerik yalnizca egitim amaclidir.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Sayfalar</h4>
+        <ul>
+          <li><a href="index.html">Ana Sayfa</a></li>
+          <li><a href="piyasalar.html">Piyasalar</a></li>
+          <li><a href="analiz.html">Teknik Analiz</a></li>
+          <li><a href="ekonomik-takvim.html">Ekonomik Takvim</a></li>
+          <li><a href="haberler.html">Haberler</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kaynaklar</h4>
+        <ul>
+          <li><a href="analiz.html">Grafik Okuma</a></li>
+          <li><a href="analiz.html">Indikatörler</a></li>
+          <li><a href="analiz.html">Mum Formasyonlari</a></li>
+          <li><a href="ekonomik-takvim.html">Veri Takvimi</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Iletisim</h4>
+        <ul>
+          <li><a href="hakkinda.html">Hakkimizda</a></li>
+          <li><a href="hakkinda.html">Bize Ulasin</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>2026 ForexAnaliz. Tum haklari saklidir.</span>
+      <span>Egitim amacli icerik - Yatirim tavsiyesi degildir.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
